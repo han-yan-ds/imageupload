@@ -7,11 +7,10 @@ const fileUpload = require('express-fileupload');
 const app = express();
 
 // storage directory
-const fs = require('fs');
+// const fs = require('fs');
+const fsUtil = require('./util/fsUtil');
 exports.saveDir = path.join(__dirname, 'storage');
-if (!fs.existsSync(this.saveDir)) {
-  fs.mkdirSync(this.saveDir); // creates storage directory if it doesn't yet exist 
-}
+fsUtil.makeDirIfNotExist(this.saveDir);
 
 // controllers
 const {

@@ -1,7 +1,7 @@
 const knexMode = require('../knexfile').development;
 const knex = require('knex')(knexMode);
-const path = require('path');
 const {saveDir} = require('../server');
+const fsUtil = require('../util/fsUtil');
 
 exports.postImageMetadata = async (body, cb = data => data) => {
   const {imagename, imagepath} = body;
@@ -16,15 +16,10 @@ exports.postImageMetadata = async (body, cb = data => data) => {
 }
 
 exports.postImage = (files, cb = data => data) => {
-  let file = files['fileKey'];
-  file.mv(path.join(saveDir, file.name), (err) => {
-    if (err) {
-      console.error("Error saving image");
-      console.error(err);
-    }
-  });
-  cb({
-    imagename: file.name,
-    imagepath: saveDir
-  });
+  if (files && files['fileKey']) {
+    let file = files['fileKey'];
+    cb(fsUtil.saveFileNoConflict(file, saveDir));
+  } else { // handle null
+    throw('No file uploaded: No file selected?');
+  }
 }

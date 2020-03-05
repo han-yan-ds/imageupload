@@ -20,7 +20,7 @@ async function saveImage(files) {
     method: 'POST',
     body: formData
   });
-  response.json();
+  console.log(await response.json());
 }
 
 async function saveImageMetadata(imagename, imagepath) {
