@@ -9,9 +9,8 @@ const app = express();
 // storage directory
 const fs = require('fs');
 exports.saveDir = path.join(__dirname, 'storage');
-
 if (!fs.existsSync(this.saveDir)) {
-  fs.mkdirSync(this.saveDir);
+  fs.mkdirSync(this.saveDir); // creates storage directory if it doesn't yet exist 
 }
 
 // controllers
