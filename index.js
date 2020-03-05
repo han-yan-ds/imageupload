@@ -15,12 +15,12 @@ function changeImage(files) {
 
 async function saveImage(files) {
   const formData = new FormData();
-  formData.append('filename', files[0])
+  formData.append('fileKey', files[0])
   let response = await fetch('/saveImage', {
     method: 'POST',
     body: formData
   });
-  console.log(await response.text());
+  console.log(await response.json());
 }
 
 async function saveImageMetadata(imagename, imagepath) {

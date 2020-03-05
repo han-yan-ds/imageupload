@@ -1,5 +1,7 @@
 const knexMode = require('../knexfile').development;
 const knex = require('knex')(knexMode);
+const path = require('path');
+const saveDir = path.join(__dirname, '..', 'storage')
 
 exports.postImageMetadata = async (body, cb = data => data) => {
   const {imagename, imagepath} = body;
@@ -7,10 +9,6 @@ exports.postImageMetadata = async (body, cb = data => data) => {
     cb(await knex('images').insert({
       imagename, imagepath
     }).returning('imageid'));
-    /**
-     * Body would have imagename, imagepath
-     * AND return imageid
-     */
   } catch(err) {
     console.error("Error posting image");
     console.error(err);
@@ -18,7 +16,12 @@ exports.postImageMetadata = async (body, cb = data => data) => {
 }
 
 exports.postImage = (files, cb = data => data) => {
-  let file = files['filename'];
-  console.log(file);
-  cb(file);
+  let file = files['fileKey'];
+  file.mv(path.join(saveDir, file.name), (err) => {
+    if (err) {
+      console.error("Error saving image");
+      console.error(err);
+    }
+  });
+  cb(files);
 }
