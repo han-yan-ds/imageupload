@@ -14,7 +14,7 @@ fsUtil.makeDirIfNotExist(this.saveDir);
 
 // controllers
 const {
-  postImageMetadataController, postImageController
+  postImageController
 } = require('./controllers/postController');
 
 // apply middleware
@@ -24,7 +24,6 @@ app.use(express.static(__dirname));
 app.use(fileUpload());
 
 // routes
-app.post('/images', postImageMetadataController)
 app.post('/saveImage', postImageController)
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
