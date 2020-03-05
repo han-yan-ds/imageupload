@@ -1,6 +1,7 @@
 window.addEventListener('load', function() {
   document.querySelector('input[type="file"]').addEventListener('change', function() {
-    changeImage(this.files);
+    saveImage(this.files);
+    // saveImageMetadata('tryfetch', '/home/han/Programming/Development/JavaScript/ImageUpload');
   });
 });  
 
@@ -12,3 +13,21 @@ function changeImage(files) {
   }
 }
 
+async function saveImage(files) {
+  const formData = new FormData();
+  formData.append('filename', files[0])
+  let response = await fetch('/saveImage', {
+    method: 'POST',
+    body: formData
+  });
+  console.log(await response.text());
+}
+
+async function saveImageMetadata(imagename, imagepath) {
+  let response = await fetch('/images', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({imagename, imagepath})
+  });
+  response.json();
+}

@@ -16,3 +16,9 @@ exports.postImageMetadata = async (body, cb = data => data) => {
     console.error(err);
   }
 }
+
+exports.postImage = (files, cb = data => data) => {
+  let file = files['filename'];
+  console.log(file);
+  cb(file);
+}
