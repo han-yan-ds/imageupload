@@ -5,6 +5,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 
+// storage directory
+const fs = require('fs');
+exports.saveDir = path.join(__dirname, 'storage');
+
+if (!fs.existsSync(this.saveDir)) {
+  fs.mkdirSync(this.saveDir);
+}
+
 const {
   postImageMetadataController, postImageController
 } = require('./controllers/postController');

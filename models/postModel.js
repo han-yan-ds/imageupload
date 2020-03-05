@@ -1,7 +1,7 @@
 const knexMode = require('../knexfile').development;
 const knex = require('knex')(knexMode);
 const path = require('path');
-const saveDir = path.join(__dirname, '..', 'storage')
+const {saveDir} = require('../server');
 
 exports.postImageMetadata = async (body, cb = data => data) => {
   const {imagename, imagepath} = body;
