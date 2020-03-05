@@ -13,9 +13,8 @@ exports.saveDir = path.join(__dirname, 'storage');
 fsUtil.makeDirIfNotExist(this.saveDir);
 
 // controllers
-const {
-  postImageController
-} = require('./controllers/postController');
+const {getImageController} = require('./controllers/getController');
+const {postImageController} = require('./controllers/postController');
 
 // apply middleware
 app.use(bodyParser.json());
@@ -24,7 +23,8 @@ app.use(express.static(__dirname));
 app.use(fileUpload());
 
 // routes
-app.post('/saveImage', postImageController)
+app.post('/saveImage', postImageController);
+app.get('/downloadImage', getImageController);
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
