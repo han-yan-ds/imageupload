@@ -15,11 +15,19 @@ exports.saveFileNoConflict = (file, dir, counter = 0) => {
       console.error("Error saving image");
       console.error(err);
     }
-  })
+  });
+  setReadOnly(path.join(dir, newFileName));
   return {
     imagename: newFileName,
     imagepath: dir
   };
+}
+
+function setReadOnly(filepath) {
+  fs.chmodSync(filepath, 0o444, err => {
+    if (err) throw err;
+    console.log("File permission change succcessful");
+  });
 }
 
 function changeFileName(filename) {
