@@ -1,7 +1,6 @@
 window.addEventListener('load', function() {
   document.querySelector('input[type="file"]').addEventListener('change', function() {
     saveImage(this.files);
-    // saveImageMetadata('tryfetch', '/home/han/Programming/Development/JavaScript/ImageUpload');
   });
 });  
 
@@ -20,14 +19,5 @@ async function saveImage(files) {
     method: 'POST',
     body: formData
   });
-  console.log(await response.json());
-}
-
-async function saveImageMetadata(imagename, imagepath) {
-  let response = await fetch('/images', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({imagename, imagepath})
-  });
-  response.json();
+  console.log(await response.json()); // this console.log only shows the structure of the data returned back after uploading
 }
