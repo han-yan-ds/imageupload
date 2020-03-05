@@ -23,5 +23,8 @@ exports.postImage = (files, cb = data => data) => {
       console.error(err);
     }
   });
-  cb(files);
+  cb({
+    imagename: file.name,
+    imagepath: saveDir
+  });
 }
