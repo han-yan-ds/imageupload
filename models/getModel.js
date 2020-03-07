@@ -14,5 +14,3 @@ exports.getImageMetadataModel = async (imageid, cb = data => data) => {
     console.error(err);
   }
 }
-
-exports.getImageModel = () => {}

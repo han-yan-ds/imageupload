@@ -1,4 +1,4 @@
-const {getImageModel, getImageMetadataModel} = require('../models/getModel');
+const {getImageMetadataModel} = require('../models/getModel');
 const path = require('path');
 
 exports.getImageController = async (req, res) => {
