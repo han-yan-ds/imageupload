@@ -24,7 +24,7 @@ app.use(fileUpload());
 
 // routes
 app.post('/saveImage', postImageController);
-app.get('/downloadImage', getImageController);
+app.get('/downloadImage/:imageId', getImageController);
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
