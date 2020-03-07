@@ -8,8 +8,8 @@ exports.makeDirIfNotExist = (dir, recursive = true) => {
   }
 }
 
-exports.saveFileNoConflict = (file, dir, counter = 0) => {
-  let newFileName = changeFileName(file.name, counter);
+exports.saveFileNoConflict = (file, dir) => {
+  let newFileName = changeFileName(file.name, moment().valueOf());
   file.mv(path.join(dir, newFileName), (err) => {
     if (err) {
       console.error("Error saving image");
@@ -30,8 +30,8 @@ function setReadOnly(filepath) {
   });
 }
 
-function changeFileName(filename) {
+function changeFileName(filename, suffix) {
   let splits = filename.split('.');
-  splits.splice(-1, 0, moment().valueOf());
+  splits.splice(-1, 0, suffix);
   return splits.join('.');
 }

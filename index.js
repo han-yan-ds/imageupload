@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
   document.querySelector('input[type="file"]').addEventListener('change', function() {
-    saveImage(this.files);
+    saveImage(this.files[0]);
   });
 });  
 
@@ -12,9 +12,18 @@ function changeImage(files) {
   }
 }
 
-async function saveImage(files) {
+async function downloadImage(imageId) {
+  let response = await fetch(`/downloadImage/:${imageId}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({imageId});
+  });
+  console.log(await response.json());
+}
+
+async function saveImage(file) {
   const formData = new FormData();
-  formData.append('fileKey', files[0])
+  formData.append('fileKey', file)
   let response = await fetch('/saveImage', {
     method: 'POST',
     body: formData
