@@ -1,24 +1,22 @@
 window.addEventListener('load', function() {
-  document.querySelector('input[type="file"]').addEventListener('change', function() {
-    saveImage(this.files[0]);
+  document.querySelector('input[type="file"]').addEventListener('change', async function() {
+    await saveImage(this.files[0]);
+    await downloadImage(5, (blob) => changeImage('myImg', blob))
   });
-});  
+});
 
-function changeImage(files) {
-  if (files && files[0]) {
-      const img = document.getElementById('myImg');
-      img.src = URL.createObjectURL(files[0]); // set src to blob url
-      img.onload = alert(img.src); // have an alert showing the path to the image
-  }
+function changeImage(imgId, blob) {
+  const img = document.getElementById(imgId);
+  img.src = URL.createObjectURL(blob); // set src to blob url
+  console.log(img.src); // have an alert showing the path to the image
 }
 
-async function downloadImage(imageId) {
-  let response = await fetch(`/downloadImage/:${imageId}`, {
+async function downloadImage(imageId, cb = blob => blob) {
+  let response = await fetch(`/downloadImage/${imageId}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({imageId})
   });
-  console.log(await response.json());
+  cb(await response.blob());
 }
 
 async function saveImage(file) {
