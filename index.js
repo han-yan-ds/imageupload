@@ -16,7 +16,7 @@ async function downloadImage(imageId) {
   let response = await fetch(`/downloadImage/:${imageId}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({imageId});
+    body: JSON.stringify({imageId})
   });
   console.log(await response.json());
 }
